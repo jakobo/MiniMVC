@@ -1,0 +1,17 @@
+{
+  "name": "MiniMVC",
+  "description": "A lightweight MVC app that excels at code organization",
+  "version":     "0.0.1",
+  "author": "Jakob Heuser <jakob@felocity.com>",
+  "homepage": "https://github.com/jakobo/MiniMVC",
+  "keywords": ["mvc", "lightweight", "organize"],
+  "main": "minimvc.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jakobo/MiniMVC"
+  },
+  "dependencies": {
+    "seq": "0.3.3"
+  },
+  "engine": "node >= 0.4.10"
+}

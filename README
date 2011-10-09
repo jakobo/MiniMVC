@@ -1,0 +1,61 @@
+MiniMVC: Simple Code Organization
+===
+As Taken from the File...
+
+The entire purpose of MiniMVC is to get out of the way. If you've selected your
+own router, template layer, etc, you may just want an easy way to organize the
+code. That's where MiniMVC comes in.
+  
+What MiniMVC is:
+
+* Code Structure - directories for /controllers, /models, and /views
+* Light - scans the file structure once on server start
+* Convienent - quick access via MiniMVC.controller("Name", params)
+  
+What MiniMVC is not:
+
+* A router (there's plenty of those around)
+* Middleware (probably because I haven't learned Connect well enough yet)
+  
+How do I use it?
+---
+```
+require("MiniMVC").boot(__dirname, function () {
+  // directories scanned and loaded
+  server = require("http").createServer(function(request, response, function) {
+    // make some decisions about where to route
+    // params is an object with additional key/values you create or take from a router
+    require("MiniMVC").begin(request, response, params).controller("Root").index()
+  });
+});
+```
+
+* *boot(directory, callback)*: Start the engine. Scans your controllers, models, and views
+  directories, and once everything is ready, invokes callback()
+* *begin(request, response, params)*: Begins the MVC processing. request, response, and
+  params are passed through and available in your models, controllers, and views via
+  this.request(), this.response(), and this.params()
+* *.controller(name)* this is a chained function. The "Root" controller is loaded, and
+  returned. In this case, we're calling the index() method on it.
+
+```
+// and in controllers/rootcontroller.js
+// if you aren't using coffeescript, you need to extend Controller, and call
+// the super class' constructor()
+Controller = require("MiniMVC").Controller
+class RootController extends Controller
+  index: () ->
+    // the following methods are available
+    // @request(): get the request
+    // @response(): get the response (null for models)
+    // @params(): get the params
+    
+    // @model(name): invoke a model
+    // @view(name): invoke a view
+
+// the export object defines what will be found under .controller(name)
+// in this case, we're exposing "Root" as a callable item
+exports.Root = RootController
+```
+
+That's it in a nut shell.
