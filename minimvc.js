@@ -47,7 +47,7 @@
   };
   fs = require("fs");
   Seq = require("seq");
-  sys = require("sys");
+  util = require('util');
   root = null;
   directories = {
     controllers: "controllers",
@@ -107,7 +107,7 @@
         type = order[_i];
         out.push("" + next.vars[type] + " " + type);
       }
-      sys.log("MiniMVC booted successfully: " + (out.join(', ')));
+      util.log("MiniMVC booted successfully: " + (out.join(', ')));
       if (callback != null) {
         return callback();
       }
